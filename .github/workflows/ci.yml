@@ -1,0 +1,52 @@
+name: CI Build & Verify
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  backend-build:
+    name: Backend Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build with Maven
+        run: |
+          cd backend
+          mvn -B clean test-compile
+
+  frontend-office-build:
+    name: Harbour Officer Web App Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: frontend/web-app-office/package-lock.json
+
+      - name: Install Dependencies
+        run: |
+          cd frontend/web-app-office
+          npm ci
+
+      - name: Build Web App
+        run: |
+          cd frontend/web-app-office
+          npm run build
+

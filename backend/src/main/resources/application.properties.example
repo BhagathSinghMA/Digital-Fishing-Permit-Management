@@ -1,0 +1,22 @@
+# ==============================================================================
+# Fisher-Token Backend Configuration Template
+# Copy this file to application.properties and customize for your environment
+# ==============================================================================
+
+spring.application.name=FishingPermit
+server.port=8082
+
+# PostgreSQL Database Configuration
+spring.datasource.url=jdbc:postgresql://localhost:5432/fishing_permit_db
+spring.datasource.username=postgres
+spring.datasource.password=your_secure_password_here
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# JPA / Hibernate Configuration
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+# JWT Configuration
+jwt.secret=Your256BitOrGreaterSecretKeyForProductionHere123456
+jwt.expiration=86400000
